@@ -4,11 +4,9 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/validity_check"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Validity checker" />
         <item
             android:id="@+id/log"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="Log" />
     </group>
 

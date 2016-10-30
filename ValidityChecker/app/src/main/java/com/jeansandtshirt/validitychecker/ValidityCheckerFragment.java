@@ -15,13 +15,21 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class ValidityCheckerFragment extends Fragment {
 
     Button checkButton;
     EditText pNumber;
+    EditText name;
     ValidityChecks validityChecks;
+    CandidateData candidateData;
+
+    public Firebase mRef;
 
     public ValidityCheckerFragment() {
         // Required empty public constructor
@@ -31,42 +39,44 @@ public class ValidityCheckerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        mRef = new Firebase("https://validitychecker-c5ec7.firebaseio.com/");
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_validity_checker, container, false);
 
         checkButton = (Button)view.findViewById(R.id.check_button);
         pNumber = (EditText)view.findViewById(R.id.p_number);
+        name = (EditText)view.findViewById(R.id.name);
+        name.requestFocus();
+
         validityChecks = new ValidityChecks();
 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                List<Integer> ints = validityChecks.toIntArray(pNumber.getText().toString());
-                if (ints == null || !validityChecks.correctPNum(ints)){
-                    wrongPNumberDialog();
+
+                String formattedPNumber = validityChecks.toStdPNumberFormat(pNumber.getText().toString());
+
+                if (formattedPNumber == null ||
+                        !validityChecks.correctPNum(validityChecks.toIntArray(formattedPNumber))){
+                    validityDialog(R.string.not_valid_title, R.string.wrong_pnumber_msg);
+
+                    mRef.push().setValue(new CandidateData(name.getText().toString(),
+                            pNumber.getText().toString(),
+                            Calendar.getInstance().getTime().toString()));
                 }
                 else{
-                    correntPnumberDialog();
+                    validityDialog(R.string.valid_title, R.string.corrent_pnumber_msg);
                 }
             }
         });
         return view;
     }
 
-    public void wrongPNumberDialog(){
+    public void validityDialog(int title, int message){
         final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setTitle(R.string.not_valid_title);
-        dialog.setMessage(getContext().getString(R.string.wrong_pnumber_msg));
-        dialog.setCancelable(false);
-        dialog.setPositiveButton("OK", null);
-        dialog.create();
-        dialog.show();
-    }
-
-    public void correntPnumberDialog(){
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-        dialog.setTitle(R.string.valid_title);
-        dialog.setMessage(getContext().getString(R.string.corrent_pnumber_msg));
+        dialog.setTitle(getContext().getString(title));
+        dialog.setMessage(getContext().getString(message));
         dialog.setCancelable(false);
         dialog.setPositiveButton("OK", null);
         dialog.create();

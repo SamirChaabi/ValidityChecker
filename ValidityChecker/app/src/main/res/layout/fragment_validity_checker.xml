@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Validate"
         android:id="@+id/check_button"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/p_number"
         android:layout_alignLeft="@+id/p_number"
         android:layout_alignStart="@+id/p_number"
         android:layout_alignRight="@+id/p_number"
@@ -29,8 +29,34 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/p_number"
-        android:layout_above="@+id/check_button"
-        android:layout_centerHorizontal="true"
-        android:digits="01234567890-"/>
+        android:digits="01234567890-"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personal ID Number:"
+        android:id="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+        android:id="@+id/name"
+        android:layout_above="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/name"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -8,14 +8,21 @@ import java.util.List;
  */
 public class ValidityChecks {
 
-    public List<Integer> toIntArray(String pNumber){
+    public String toStdPNumberFormat(String pNumber){
+
         //Removes all non-numbers
         pNumber = pNumber.replaceAll("[^\\d]", "");
 
         if (pNumber.length() > 12 || pNumber.length() < 10)
             return null;
         else if(pNumber.length() == 12)
-            pNumber = pNumber.substring(2);
+            return pNumber.substring(2);
+        else
+            return pNumber;
+
+    }
+
+    public List<Integer> toIntArray(String pNumber){
 
         List<Integer> ints = new ArrayList<Integer>();
 

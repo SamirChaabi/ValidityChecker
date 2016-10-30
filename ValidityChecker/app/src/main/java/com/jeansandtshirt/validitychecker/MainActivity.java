@@ -16,6 +16,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.firebase.client.Firebase;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -29,19 +31,11 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void changeFragment2(Fragment newFragment){
-
-        FragmentTransaction fragmentTransaction2 = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction2.replace(R.id.fragment_container, newFragment);
-        fragmentTransaction2.addToBackStack(null);
-
-        fragmentTransaction2.commit();
-
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,11 +49,13 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new ValidityCheckerFragment());
-        fragmentTransaction.addToBackStack(null);
+        if (savedInstanceState == null){
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, new ValidityCheckerFragment());
+            fragmentTransaction.addToBackStack(null);
 
-        fragmentTransaction.commit();
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
@@ -86,11 +82,6 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -104,8 +95,8 @@ public class MainActivity extends AppCompatActivity
             ValidityCheckerFragment validityChecker = new ValidityCheckerFragment();
             changeFragment(validityChecker);
         } else if (id == R.id.log) {
-            Log log = new Log();
-            changeFragment2(new Log());
+            LogFragment logFragment = new LogFragment();
+            changeFragment(logFragment);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
