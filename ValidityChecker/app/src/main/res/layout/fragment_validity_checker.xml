@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.jeansandtshirt.validitychecker.ValidityCheckerFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Validate"
+        android:id="@+id/check_button"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/p_number"
+        android:layout_alignStart="@+id/p_number"
+        android:layout_alignRight="@+id/p_number"
+        android:layout_alignEnd="@+id/p_number" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/p_number"
+        android:layout_above="@+id/check_button"
+        android:layout_centerHorizontal="true"
+        android:digits="01234567890-"/>
+
+</RelativeLayout>

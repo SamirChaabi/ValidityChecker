@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ValidityChecker</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="wrong_pnumber_msg">The personal identity number entered is not valid</string>
+    <string name="not_valid_title">Not valid</string>
+    <string name="valid_title">Valid</string>
+    <string name="corrent_pnumber_msg">The personal identity number entered is valid</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
