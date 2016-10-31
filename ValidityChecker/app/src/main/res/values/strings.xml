@@ -12,4 +12,8 @@
     <string name="valid_title">Valid</string>
     <string name="corrent_pnumber_msg">The personal identity number entered is valid</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="name">name</string>
+    <string name="date_added">dateAdded</string>
+    <string name="p_number">pNumber</string>
 </resources>

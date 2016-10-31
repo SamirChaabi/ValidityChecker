@@ -15,7 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -57,13 +60,14 @@ public class ValidityCheckerFragment extends Fragment {
 
                 String formattedPNumber = validityChecks.toStdPNumberFormat(pNumber.getText().toString());
 
-                if (formattedPNumber == null ||
+                if (formattedPNumber == null || !validityChecks.born(formattedPNumber) ||
                         !validityChecks.correctPNum(validityChecks.toIntArray(formattedPNumber))){
                     validityDialog(R.string.not_valid_title, R.string.wrong_pnumber_msg);
 
-                    mRef.push().setValue(new CandidateData(name.getText().toString(),
-                            pNumber.getText().toString(),
-                            Calendar.getInstance().getTime().toString()));
+                    mRef.push().setValue(
+                            new CandidateData(name.getText().toString(),
+                                                pNumber.getText().toString(),
+                                                Calendar.getInstance().getTime().toString()));
                 }
                 else{
                     validityDialog(R.string.valid_title, R.string.corrent_pnumber_msg);

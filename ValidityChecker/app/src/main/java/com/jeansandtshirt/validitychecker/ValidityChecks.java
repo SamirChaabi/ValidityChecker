@@ -1,7 +1,11 @@
 package com.jeansandtshirt.validitychecker;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by samir on 2016-10-29.
@@ -9,17 +13,29 @@ import java.util.List;
 public class ValidityChecks {
 
     public String toStdPNumberFormat(String pNumber){
-
         //Removes all non-numbers
         pNumber = pNumber.replaceAll("[^\\d]", "");
 
-        if (pNumber.length() > 12 || pNumber.length() < 10)
+        if (pNumber.length() > 12 || pNumber.length() == 11 || pNumber.length() < 10)
             return null;
         else if(pNumber.length() == 12)
             return pNumber.substring(2);
         else
             return pNumber;
+    }
 
+    public Boolean isEmpty(){
+
+        return null;
+    }
+
+    public Boolean born(String formattedDate){
+        try{
+            return new SimpleDateFormat("yyMMDD").parse(formattedDate.substring(0, 5)).compareTo(new Date()) == 1 ? false : true;
+        }
+        catch(Exception e){
+            return null;
+        }
     }
 
     public List<Integer> toIntArray(String pNumber){
@@ -36,8 +52,10 @@ public class ValidityChecks {
     public boolean correctPNum(List<Integer> pNum){
         int controlNbr = 0;
         for (int i = 0; i < pNum.size()-1; i++){
-            int a = pNum.get(i) * (2-i%2);   // multiplicera med 2 eller 1
-            controlNbr += a/10 + a%10;      // addera siffrorna i resultatet till summan
+            //Toggles with multiplying a numer from the PID with 1 or 2
+            int a = pNum.get(i) * (2-i%2);
+            //if bigger than 10 the numbers are "splitted" and added if not the number is added
+            controlNbr += a/10 + a%10;
         }
         controlNbr %= 10;
 
