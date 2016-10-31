@@ -28,16 +28,13 @@ public class ValidityChecks {
 
     //Checks if the name field is empty or not
     public Boolean isNameEmpty(String name){
-        if (name.equals(""))
-            return true;
-        else
-            return false;
+        return name.equals("");
     }
 
     //Checks if date entered is possible to have as a birthdate
     public Boolean born(String formattedDate){
         try{
-            return new SimpleDateFormat("yyMMDD").parse(formattedDate.substring(0, 5)).compareTo(new Date()) == 1 ? false : true;
+            return new SimpleDateFormat("yyMMDD", Locale.ENGLISH).parse(formattedDate.substring(0, 5)).compareTo(new Date()) != 1;
         }
         catch(Exception e){
             return null;
@@ -67,9 +64,6 @@ public class ValidityChecks {
         }
         controlNbr %= 10;
 
-        if((10 - controlNbr)%10 == pNum.get(pNum.size()-1))
-            return  true;
-        else
-            return false;
+        return (10 - controlNbr)%10 == pNum.get(pNum.size()-1);
     }
 }

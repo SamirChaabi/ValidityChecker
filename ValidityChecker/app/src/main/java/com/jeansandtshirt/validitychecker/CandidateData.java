@@ -22,6 +22,7 @@ public class CandidateData {
     }
 
     public CandidateData(){
+
     }
 
     @JsonProperty("name")

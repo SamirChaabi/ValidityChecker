@@ -70,6 +70,7 @@ public class LogFragment extends Fragment {
                     listItems.add((String)linkedHashMap.get(getContext().getString(R.string.name)) + "\n" +
                                     (String)linkedHashMap.get(getContext().getString(R.string.p_number)) + "\n" +
                                     (String)linkedHashMap.get(getContext().getString(R.string.date_added)));
+                    it.remove();
                     adapter.notifyDataSetChanged();
                 }
             }

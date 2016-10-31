@@ -109,6 +109,7 @@ public class ValidityCheckerFragment extends Fragment {
                 }
                 else{
                     validityDialog(R.string.valid_title, R.string.corrent_pnumber_msg);
+                    clearTextFieldsAndSetFocus();
                 }
             }
         });
@@ -127,5 +128,11 @@ public class ValidityCheckerFragment extends Fragment {
 
     public void setmRef(Firebase mRef){
         this.mRef = mRef;
+    }
+
+    public void clearTextFieldsAndSetFocus(){
+        pNumber.setText("");
+        name.setText("");
+        name.requestFocus();
     }
 }
