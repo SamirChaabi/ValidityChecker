@@ -21,6 +21,8 @@ import com.firebase.client.Firebase;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    Firebase mRef;
+
     public void changeFragment(Fragment newFragment){
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,12 +49,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (savedInstanceState == null){
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, new ValidityCheckerFragment());
-            fragmentTransaction.addToBackStack(null);
+        mRef = new Firebase("https://validitychecker-c5ec7.firebaseio.com/");
 
+        if (savedInstanceState == null){
+            ValidityCheckerFragment validityCheckerFragment = new ValidityCheckerFragment();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, validityCheckerFragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
+            validityCheckerFragment.setmRef(mRef);
         }
     }
 
@@ -93,9 +97,11 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.validity_check) {
             ValidityCheckerFragment validityChecker = new ValidityCheckerFragment();
             changeFragment(validityChecker);
+            validityChecker.setmRef(mRef);
         } else if (id == R.id.log) {
             LogFragment logFragment = new LogFragment();
             changeFragment(logFragment);
+            logFragment.setmRef(mRef);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

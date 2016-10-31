@@ -38,6 +38,10 @@ public class LogFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void setmRef(Firebase mRef){
+        this.mRef = mRef;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,8 +60,6 @@ public class LogFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mRef = new Firebase("https://validitychecker-c5ec7.firebaseio.com/");
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override

@@ -12,6 +12,7 @@ import java.util.Locale;
  */
 public class ValidityChecks {
 
+    //Returns the date in a format easy to work with, null gets returned if the date entered is not correct
     public String toStdPNumberFormat(String pNumber){
         //Removes all non-numbers
         pNumber = pNumber.replaceAll("[^\\d]", "");
@@ -24,11 +25,16 @@ public class ValidityChecks {
             return pNumber;
     }
 
-    public Boolean isEmpty(){
 
-        return null;
+    //Checks if the name field is empty or not
+    public Boolean isNameEmpty(String name){
+        if (name.equals(""))
+            return true;
+        else
+            return false;
     }
 
+    //Checks if date entered is possible to have as a birthdate
     public Boolean born(String formattedDate){
         try{
             return new SimpleDateFormat("yyMMDD").parse(formattedDate.substring(0, 5)).compareTo(new Date()) == 1 ? false : true;
@@ -38,6 +44,7 @@ public class ValidityChecks {
         }
     }
 
+    //Returns a int array form a String
     public List<Integer> toIntArray(String pNumber){
 
         List<Integer> ints = new ArrayList<Integer>();
@@ -49,6 +56,7 @@ public class ValidityChecks {
         return ints;
     }
 
+    //Calculates if the Personal ID Number is valid
     public boolean correctPNum(List<Integer> pNum){
         int controlNbr = 0;
         for (int i = 0; i < pNum.size()-1; i++){

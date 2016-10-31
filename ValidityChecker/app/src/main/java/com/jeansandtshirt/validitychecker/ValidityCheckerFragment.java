@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.*;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +44,6 @@ public class ValidityCheckerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mRef = new Firebase("https://validitychecker-c5ec7.firebaseio.com/");
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_validity_checker, container, false);
 
@@ -52,17 +52,55 @@ public class ValidityCheckerFragment extends Fragment {
         name = (EditText)view.findViewById(R.id.name);
         name.requestFocus();
 
+        name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                name.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        pNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                pNumber.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         validityChecks = new ValidityChecks();
 
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                if (validityChecks.isNameEmpty(name.getText().toString()))
+                    name.setError("Please enter a valid name");
+
                 String formattedPNumber = validityChecks.toStdPNumberFormat(pNumber.getText().toString());
 
                 if (formattedPNumber == null || !validityChecks.born(formattedPNumber) ||
                         !validityChecks.correctPNum(validityChecks.toIntArray(formattedPNumber))){
                     validityDialog(R.string.not_valid_title, R.string.wrong_pnumber_msg);
+                    pNumber.setError(getContext().getString(R.string.p_number_error));
 
                     mRef.push().setValue(
                             new CandidateData(name.getText().toString(),
@@ -85,5 +123,9 @@ public class ValidityCheckerFragment extends Fragment {
         dialog.setPositiveButton("OK", null);
         dialog.create();
         dialog.show();
+    }
+
+    public void setmRef(Firebase mRef){
+        this.mRef = mRef;
     }
 }
