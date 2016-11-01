@@ -53,10 +53,7 @@ public class MainActivity extends AppCompatActivity
 
         if (savedInstanceState == null){
             ValidityCheckerFragment validityCheckerFragment = new ValidityCheckerFragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, validityCheckerFragment);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
+            changeFragment(validityCheckerFragment);
             validityCheckerFragment.setmRef(mRef);
         }
     }

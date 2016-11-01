@@ -64,14 +64,18 @@ public class LogFragment extends Fragment {
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterator it = dataSnapshot.getValue(HashMap.class).entrySet().iterator();
-                while (it.hasNext()){
-                    LinkedHashMap linkedHashMap =(LinkedHashMap)((Map.Entry)it.next()).getValue();
-                    listItems.add((String)linkedHashMap.get(getContext().getString(R.string.name)) + "\n" +
-                                    (String)linkedHashMap.get(getContext().getString(R.string.p_number)) + "\n" +
-                                    (String)linkedHashMap.get(getContext().getString(R.string.date_added)));
-                    it.remove();
-                    adapter.notifyDataSetChanged();
+
+                if (dataSnapshot.getValue() != null){
+                    Iterator it = dataSnapshot.getValue(HashMap.class).entrySet().iterator();
+
+                    while (it.hasNext()){
+                        LinkedHashMap linkedHashMap =(LinkedHashMap)((Map.Entry)it.next()).getValue();
+                        listItems.add((String)linkedHashMap.get(getContext().getString(R.string.name)) + "\n" +
+                                (String)linkedHashMap.get(getContext().getString(R.string.p_number)) + "\n" +
+                                (String)linkedHashMap.get(getContext().getString(R.string.date_added)));
+                        it.remove();
+                        adapter.notifyDataSetChanged();
+                    }
                 }
             }
 
