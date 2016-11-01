@@ -41,6 +41,18 @@ public class ValidityCheckerFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        name.requestFocus();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        name.requestFocus();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 

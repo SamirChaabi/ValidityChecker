@@ -22,15 +22,35 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Firebase mRef;
+    android.support.v4.app.FragmentManager fragmentManager;
+    public FragmentTransaction fragmentTransaction;
+
+    public ValidityCheckerFragment validityCheckerFragment;
+    public LogFragment logFragment;
 
     public void changeFragment(Fragment newFragment){
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, newFragment);
-        fragmentTransaction.addToBackStack(null);
+        if (fragmentManager == null){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+        }
+        else
+            fragmentTransaction = fragmentManager.beginTransaction();
+
+        if(fragmentManager.findFragmentByTag(newFragment.getTag()) != null) {
+            if (newFragment == validityCheckerFragment)
+                fragmentTransaction.show(fragmentManager.findFragmentByTag(newFragment.getTag())).hide(fragmentManager.findFragmentByTag(logFragment.getTag()));
+            else
+                fragmentTransaction.show(fragmentManager.findFragmentByTag(newFragment.getTag())).hide(fragmentManager.findFragmentByTag(validityCheckerFragment.getTag()));
+        }
+        else {
+            if (newFragment.toString().equals(validityCheckerFragment.toString()) && fragmentManager.findFragmentByTag(logFragment.toString()) == null)
+                fragmentTransaction.add(R.id.fragment_container, newFragment, newFragment.toString());
+            else if (newFragment != validityCheckerFragment)
+                fragmentTransaction.add(R.id.fragment_container, newFragment, newFragment.toString()).hide(fragmentManager.findFragmentByTag(validityCheckerFragment.getTag()));
+        }
 
         fragmentTransaction.commit();
-
     }
 
     @Override
@@ -51,8 +71,10 @@ public class MainActivity extends AppCompatActivity
 
         mRef = new Firebase("https://validitychecker-c5ec7.firebaseio.com/");
 
+        validityCheckerFragment = new ValidityCheckerFragment();
+        logFragment = new LogFragment();
+
         if (savedInstanceState == null){
-            ValidityCheckerFragment validityCheckerFragment = new ValidityCheckerFragment();
             changeFragment(validityCheckerFragment);
             validityCheckerFragment.setmRef(mRef);
         }
@@ -92,11 +114,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.validity_check) {
-            ValidityCheckerFragment validityChecker = new ValidityCheckerFragment();
-            changeFragment(validityChecker);
-            validityChecker.setmRef(mRef);
+            changeFragment(validityCheckerFragment);
+            validityCheckerFragment.setmRef(mRef);
         } else if (id == R.id.log) {
-            LogFragment logFragment = new LogFragment();
             changeFragment(logFragment);
             logFragment.setmRef(mRef);
         }
