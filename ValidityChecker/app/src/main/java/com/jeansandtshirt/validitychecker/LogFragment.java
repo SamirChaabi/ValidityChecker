@@ -25,21 +25,15 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LogFragment extends Fragment {
+public class LogFragment extends ValidityCheckerFragment {
 
     ListView listView;
 
     ArrayList<String> listItems = new ArrayList<String>();
     ArrayAdapter<String> adapter;
 
-    Firebase mRef;
-
     public LogFragment() {
         // Required empty public constructor
-    }
-
-    public void setmRef(Firebase mRef){
-        this.mRef = mRef;
     }
 
     @Override
