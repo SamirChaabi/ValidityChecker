@@ -25,12 +25,6 @@ public class ValidityChecks {
             return pNumber;
     }
 
-
-    //Checks if the name field is empty or not
-    public Boolean isNameEmpty(String name){
-        return name.equals("");
-    }
-
     //Checks if date entered is possible to have as a birthdate
     public Boolean born(String formattedDate){
         try{
@@ -65,5 +59,9 @@ public class ValidityChecks {
         controlNbr %= 10;
 
         return (10 - controlNbr)%10 == pNum.get(pNum.size()-1);
+    }
+
+    public boolean isNull(CandidateData candidateData){
+        return candidateData.dateAdded == null || candidateData.pNumber == null || candidateData.name == null;
     }
 }

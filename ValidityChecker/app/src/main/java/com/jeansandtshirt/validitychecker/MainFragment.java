@@ -90,20 +90,15 @@ public class MainFragment extends ValidityCheckerFragment {
             @Override
             public void onClick(View view) {
 
-                if (validityChecks.isNameEmpty(name.getText().toString()))
-                    name.setError("Please enter a valid name");
+                candidateData = new CandidateData(name.getText().toString(),
+                        pNumber != null ? validityChecks.toStdPNumberFormat(pNumber.getText().toString()) : null,
+                        Calendar.getInstance().getTime().toString());
 
-                String formattedPNumber = validityChecks.toStdPNumberFormat(pNumber.getText().toString());
-
-                if (formattedPNumber == null || !validityChecks.born(formattedPNumber) ||
-                        !validityChecks.correctPNum(validityChecks.toIntArray(formattedPNumber))){
+                if (validityChecks.isNull(candidateData) || !validityChecks.born(candidateData.pNumber) ||
+                        !validityChecks.correctPNum(validityChecks.toIntArray(candidateData.pNumber))){
                     validityDialog(R.string.not_valid_title, R.string.wrong_pnumber_msg);
-                    pNumber.setError(getContext().getString(R.string.p_number_error));
 
-                    mRef.push().setValue(
-                            new CandidateData(name.getText().toString(),
-                                                pNumber.getText().toString(),
-                                                Calendar.getInstance().getTime().toString()));
+                    mRef.push().setValue(candidateData);
                 }
                 else{
                     validityDialog(R.string.valid_title, R.string.corrent_pnumber_msg);

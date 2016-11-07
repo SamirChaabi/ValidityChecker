@@ -6,12 +6,11 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="wrong_pnumber_msg">The personal identity number entered is not valid</string>
+    <string name="wrong_pnumber_msg">The data entered is not valid</string>
     <string name="not_valid_title">Not valid</string>
     <string name="valid_title">Valid</string>
-    <string name="corrent_pnumber_msg">The personal identity number entered is valid</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="p_number_error">Please enter a valid Personal ID Number</string>
+    <string name="corrent_pnumber_msg">The data entered is valid</string>
+    <string name="p_number_error">Please enter valid credentials</string>
 
     <string name="name">name</string>
     <string name="date_added">dateAdded</string>
