@@ -10,6 +10,7 @@ public class FirebaseConnection extends android.app.Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Firebase requires a Context
         Firebase.setAndroidContext(this);
     }
 }

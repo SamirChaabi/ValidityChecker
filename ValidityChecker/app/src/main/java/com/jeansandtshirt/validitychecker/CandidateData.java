@@ -21,6 +21,7 @@ public class CandidateData {
         this.dateAdded = dateAdded;
     }
 
+    //Mandatory empty constructor for Firebase
     public CandidateData(){
 
     }

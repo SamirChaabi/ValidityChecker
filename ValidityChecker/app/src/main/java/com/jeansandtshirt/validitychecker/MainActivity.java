@@ -21,7 +21,6 @@ import com.firebase.client.Firebase;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Firebase mRef;
     android.support.v4.app.FragmentManager fragmentManager;
     public FragmentTransaction fragmentTransaction;
     public Fragment currentFragment;
@@ -50,7 +49,6 @@ public class MainActivity extends AppCompatActivity
         }
         fragmentTransaction.commit();
         currentFragment = newFragment;
-        newFragment.setMRef(mRef);
     }
 
     @Override
@@ -68,8 +66,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        mRef = new Firebase("https://validitychecker-c5ec7.firebaseio.com/");
 
         mainFragment = new MainFragment();
         logFragment = new LogFragment();
